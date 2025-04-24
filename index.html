@@ -10,7 +10,35 @@
 <body>
     <h1>Your Library</h1>
     <div class="container">
-        
+
     </div>
+    <dialog>
+        <p>Book Details</p>
+        <hr>
+        <form method="dialog">
+            <p>
+                <label for="title">Book title:</label>
+                <input type="text" id="title">
+            </p>
+            <p>
+                <label for="author">Author:</label>
+                <input type="text" id="author">
+            </p>
+            <p>
+                <label for="pageno">Number of Pages:</label>
+                <input type="tel" id="pageno">
+            </p>
+            <p>
+                <label for="read">Read?</label>
+                <input type="checkbox" id="read">
+            </p>
+            <div class="buttongrp">
+                <button class="reset" type="button">Reset</button>
+                <button class="cancel" type="button">Cancel</button>
+                <button class="submit" type="button">Create Book</button>
+            </div>
+        </form>
+    </dialog>
+    <output></output>
 </body>
 </html>

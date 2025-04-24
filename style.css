@@ -23,4 +23,66 @@ body {
     border-radius: 15px;
     padding: 10px 10px 10px 40px;
     font-size: 1.2rem;
+    box-shadow: 5px 6px 13px 3px rgba(0,0,0,0.34);
+}
+
+button {
+    background-color: rgb(53, 129, 230);
+    font-size: 1.2rem;
+    padding: 10px 30px 10px;
+    border: 1px solid rgb(53, 129, 230);
+    border-radius: 25px;
+    box-shadow: 5px 6px 13px 1px rgba(0,0,0,0.24);
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgb(81, 147, 233);
+}
+
+button:focus {
+    outline: rgb(128, 128, 128);
+}   
+
+button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
+/*style modal*/
+::backdrop {
+    background: rgb(206, 200, 200);
+    opacity: 0.50;
+}
+
+dialog {
+    border: 3px solid grey;
+    border-radius: 15px;
+    font-size: 1.5rem;
+}
+
+input {
+    padding: 10px 20px 10px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+}
+
+
+input[type=checkbox] {
+    position: relative;
+    top: 4px;
+    width: 23px;
+    height: 23px;
+}
+
+.buttongrp {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.reset {
+    margin-right: auto;
 }
