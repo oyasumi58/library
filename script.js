@@ -25,7 +25,7 @@ function addBookToLibrary(title,author,pageno,read) {
 //test add 3 books
 addBookToLibrary('The hobbit','JRR tolkien',65,false)
 addBookToLibrary('The cat','FRR Feline',650,false)
-addBookToLibrary('The dog','WRR Wolf',6500,false)
+addBookToLibrary('The dog','WRR Wolf',6500,true)
 
 let bookObj;
 const gridCon = document.querySelector(".container");
@@ -38,19 +38,32 @@ function createCard(book) {
     cardNode.setAttribute("class","card");
     gridCon.appendChild(cardNode);
     
-    let bookTitle = document.createElement("p");
+    let bookTitle = document.createElement("h3");
     bookTitle.textContent = book.title;
-
     let bookAuthor = document.createElement("p");
-    bookAuthor.textContent = `${book.author}`;
+    bookAuthor.textContent = `Author: ${book.author}`;
     let bookPageNo = document.createElement("p");
-    bookPageNo.textContent = `${book.pageno}`;
+    bookPageNo.textContent = `Pages: ${book.pageno}`;
+    //read state stuff
+    let bookRead = document.createElement("div");
+    bookRead.setAttribute("class","read");
+    bookRead.textContent = `Read: ${book.read}`;
+    bookRead
+    if (bookRead.textContent === 'Read: true') {
+        bookRead.style.background = "rgb(137, 196, 137)"
+        bookRead.style.border = "4px solid green";
+    } else if(bookRead.textContent === 'Read: false') {
+        bookRead.style.background = "rgb(204, 110, 110)"
+        bookRead.style.border = "4px solid red";
+    }
     //console.log(bookAuthor);
 
     cardNode.appendChild(bookTitle);
     cardNode.appendChild(bookAuthor);
     cardNode.appendChild(bookPageNo);
+    cardNode.appendChild(bookRead);
 }
+
 
 // To loop thru array and place cards
 const newbutton = document.createElement("button");
@@ -82,8 +95,15 @@ const inputTitle = document.getElementById("title");
 const inputAuthor = document.getElementById("author");
 const inputPageno = document.getElementById("pageno");
 const inputRead = document.getElementById("read");
+//close dialog with background
+dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) { //dialog element is the bg, rest is children
+        dialog.close();
+        e.stopPropagation(); //to prevent it from bubbling to dialog if clicked on child
+    }
+})
 
-
+//buttons
 newbutton.addEventListener("click", () => {
    dialog.showModal();
 });
@@ -96,10 +116,10 @@ resetButton.addEventListener("click", (e) => {
     inputRead.checked = false;
 });
 
-cancelButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    dialog.close();
-});
+// cancelButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     dialog.close();
+// });
 
 submitButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -112,6 +132,19 @@ submitButton.addEventListener("click", (e) => {
     } else {
         bookRead = false;
     }
-    console.log(`${bookTitle} ${bookAuthor} ${bookPageno} ${bookRead}`)
+    //console.log(`${bookTitle} ${bookAuthor} ${bookPageno} ${bookRead}`)
+    console.log(Number(bookPageno));
+    //Adding to library
+    if (bookTitle != false && bookAuthor != false && (Number(bookPageno) > 0 && Number(bookPageno) !== NaN)) {
+        addBookToLibrary(bookTitle,bookAuthor,bookPageno,bookRead);
+        placeCard();
+        dialog.close();
+    } else if (bookTitle == false) {
+        alert("State a title")
+    } else if (bookAuthor == false) {
+        alert("State an author")
+    } else if (Number(bookPageno) <= 0 || Number(bookPageno) === NaN) {
+        alert("Page number is invalid");
+    } 
 });
 
