@@ -9,15 +9,29 @@ function Book(title,author,pageno,read) {
     this.read = read;
 }
 
-Book.prototype.removeBook = function() {};
-//Object.setPrototypeOf(book,Book.prototype);
+Book.prototype.toggleRead = function(button) {
 
-
+    const toggleButton = button;
+    if (this.read === true) {   
+        this.read = false;
+        toggleButton.textContent = `Read: false`;
+        toggleButton.style.background = "rgb(204, 110, 110)"
+        toggleButton.style.border = "4px solid red";
+    } else if (this.read === false) {
+        this.read = true;
+        toggleButton.textContent = `Read: true`;
+        toggleButton.style.background = "rgb(137, 196, 137)"
+        toggleButton.style.border = "4px solid green";
+    } else {
+        console.log(`read state error`);
+    }
+}
 
 //adds book to library array
 function addBookToLibrary(title,author,pageno,read) {
     book = new Book(title,author,pageno,read);
     myLibrary.push(book);
+    Object.setPrototypeOf(book,Book.prototype);
     //createCard(book);
     return `${book.title} has been placed in the library!`;
 }
@@ -45,10 +59,10 @@ function createCard(book) {
     let bookPageNo = document.createElement("p");
     bookPageNo.textContent = `Pages: ${book.pageno}`;
     //read state stuff
-    let bookRead = document.createElement("div");
+    let bookRead = document.createElement("button");
     bookRead.setAttribute("class","read");
+    bookRead.setAttribute("type","button");
     bookRead.textContent = `Read: ${book.read}`;
-    bookRead
     if (bookRead.textContent === 'Read: true') {
         bookRead.style.background = "rgb(137, 196, 137)"
         bookRead.style.border = "4px solid green";
@@ -65,12 +79,14 @@ function createCard(book) {
     delButtonNode.textContent = "Delete Book";
     delButtonNode.setAttribute("data-id",book.id);
 
-    console.log(delButtonNode);
+    //console.log(delButtonNode);
     cardNode.appendChild(bookTitle);
     cardNode.appendChild(bookAuthor);
     cardNode.appendChild(bookPageNo);
     cardNode.appendChild(bookRead);
     cardNode.appendChild(delButtonNode);
+    let infoArray = [cardNode, bookRead];
+    return infoArray;
 }
 
 
@@ -82,7 +98,9 @@ newbutton.textContent = `+ New Book`;
 function placeCard() {
     gridCon.replaceChildren(); //To reset
     for (book of myLibrary) {
-        createCard(book);
+        cardNodeArray = createCard(book);
+        console.log(cardNodeArray);
+        addTogButton(book,cardNodeArray[0]);
     }
     addDelButton();
     gridCon.appendChild(newbutton); // this is to occur last
@@ -158,6 +176,7 @@ submitButton.addEventListener("click", (e) => {
     }
 });
 
+
 function addDelButton() {
     const delButton = document.querySelectorAll(".delbutton");
     delButton.forEach(function(button) {button.addEventListener("click", (e) => {
@@ -179,4 +198,9 @@ function addDelButton() {
             return
         }
     })});
+}
+
+function addTogButton(bookObj,bookNode) {
+    const toggleButton = bookNode.querySelector(".read");
+    toggleButton.addEventListener("click",() => {bookObj.toggleRead(toggleButton)});
 }

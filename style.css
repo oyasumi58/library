@@ -70,7 +70,9 @@ button:active {
     left: 1px;
 }
 
-
+.read {
+    color: black;
+}
 
 /*style modal*/
 ::backdrop {
