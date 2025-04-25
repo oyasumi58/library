@@ -13,7 +13,7 @@ p {
     display: grid;
     gap: 15px;
     grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    grid-auto-rows: 260px;
+    grid-auto-rows: 280px;
     height: 100vh;
     padding: 15px;
     justify-items: center;
@@ -24,7 +24,7 @@ p {
     background: white;
     border-left: 10px solid rgb(233, 190, 97);
     width: clamp(200px,80%,250px); 
-    height: clamp(200px,80%,250px);
+    height: clamp(250px,80%,260px);
     border-radius: 15px;
     padding: 10px 10px 10px 40px;
     font-size: 1.2rem;
@@ -32,6 +32,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    position: relative;
 }
 
 button {
@@ -43,6 +44,16 @@ button {
     box-shadow: 5px 6px 13px 1px rgba(0,0,0,0.24);
     color: white;
     font-weight: bold;
+}
+
+.delbutton {
+    box-shadow: initial;
+    font-size: 0.8rem;
+    padding: 5px 10px 5px;
+    width: 80px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 10px;
 }
 
 button:hover {
@@ -58,6 +69,8 @@ button:active {
     top: 1px;
     left: 1px;
 }
+
+
 
 /*style modal*/
 ::backdrop {

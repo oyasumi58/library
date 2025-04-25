@@ -58,10 +58,19 @@ function createCard(book) {
     }
     //console.log(bookAuthor);
 
+    //delete button
+    let delButtonNode = document.createElement("button");
+    delButtonNode.setAttribute("type","button");
+    delButtonNode.setAttribute("class","delbutton");
+    delButtonNode.textContent = "Delete Book";
+    delButtonNode.setAttribute("data-id",book.id);
+
+    console.log(delButtonNode);
     cardNode.appendChild(bookTitle);
     cardNode.appendChild(bookAuthor);
     cardNode.appendChild(bookPageNo);
     cardNode.appendChild(bookRead);
+    cardNode.appendChild(delButtonNode);
 }
 
 
@@ -75,6 +84,7 @@ function placeCard() {
     for (book of myLibrary) {
         createCard(book);
     }
+    addDelButton();
     gridCon.appendChild(newbutton); // this is to occur last
 }
 
@@ -135,7 +145,7 @@ submitButton.addEventListener("click", (e) => {
     //console.log(`${bookTitle} ${bookAuthor} ${bookPageno} ${bookRead}`)
     console.log(Number(bookPageno));
     //Adding to library
-    if (bookTitle != false && bookAuthor != false && (Number(bookPageno) > 0 && Number(bookPageno) !== NaN)) {
+    if (bookTitle != false && bookAuthor != false && (Number(bookPageno) > 0 && !Number.isNaN(Number(bookPageno)))) {
         addBookToLibrary(bookTitle,bookAuthor,bookPageno,bookRead);
         placeCard();
         dialog.close();
@@ -143,8 +153,30 @@ submitButton.addEventListener("click", (e) => {
         alert("State a title")
     } else if (bookAuthor == false) {
         alert("State an author")
-    } else if (Number(bookPageno) <= 0 || Number(bookPageno) === NaN) {
+    } else if (Number(bookPageno) <= 0 || Number.isNaN(Number(bookPageno))) {
         alert("Page number is invalid");
-    } 
+    }
 });
 
+function addDelButton() {
+    const delButton = document.querySelectorAll(".delbutton");
+    delButton.forEach(function(button) {button.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (confirm("Are you sure you want to do this?")) {
+            let cardId = button.getAttribute("data-id");
+            console.log(cardId);
+            for (i=0; i < myLibrary.length; i++) {
+                console.log(myLibrary[i].id);
+                if (myLibrary[i].id === cardId) {
+                    console.log(`deleted ${myLibrary[i].title}`);
+                    myLibrary.splice(i,1);
+                } else {
+                    console.log("Pass");
+                }
+            }
+            placeCard();
+        } else {
+            return
+        }
+    })});
+}
