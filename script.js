@@ -1,31 +1,59 @@
 const myLibrary = [];
 let book;
 
-function Book(title,author,pageno,read) {
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pageno = pageno;
-    this.read = read;
-}
+// function Book(title,author,pageno,read) {
+//     this.id = crypto.randomUUID();
+//     this.title = title;
+//     this.author = author;
+//     this.pageno = pageno;
+//     this.read = read;
+// } //turn into a contructor function within class
 
-Book.prototype.toggleRead = function(button) {
+class Book {
+    constructor(title,author,pageno,read) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pageno = pageno;
+        this.read = read;
+    }
 
-    const toggleButton = button;
-    if (this.read === true) {   
-        this.read = false;
-        toggleButton.textContent = `Read: false`;
-        toggleButton.style.background = "rgb(204, 110, 110)"
-        toggleButton.style.border = "4px solid red";
-    } else if (this.read === false) {
-        this.read = true;
-        toggleButton.textContent = `Read: true`;
-        toggleButton.style.background = "rgb(137, 196, 137)"
-        toggleButton.style.border = "4px solid green";
-    } else {
-        console.log(`read state error`);
+    toggleRead(button) {
+        const toggleButton = button;
+        if (this.read === true) {   
+            this.read = false;
+            toggleButton.textContent = `Read: false`;
+            toggleButton.style.background = "rgb(204, 110, 110)"
+            toggleButton.style.border = "4px solid red";
+        } else if (this.read === false) {
+            this.read = true;
+            toggleButton.textContent = `Read: true`;
+            toggleButton.style.background = "rgb(137, 196, 137)"
+            toggleButton.style.border = "4px solid green";
+        } else {
+            console.log(`read state error`);
+        }
     }
 }
+
+
+// Book.prototype.toggleRead = function(button) { //can turn into instance method within class
+
+//     const toggleButton = button;
+//     if (this.read === true) {   
+//         this.read = false;
+//         toggleButton.textContent = `Read: false`;
+//         toggleButton.style.background = "rgb(204, 110, 110)"
+//         toggleButton.style.border = "4px solid red";
+//     } else if (this.read === false) {
+//         this.read = true;
+//         toggleButton.textContent = `Read: true`;
+//         toggleButton.style.background = "rgb(137, 196, 137)"
+//         toggleButton.style.border = "4px solid green";
+//     } else {
+//         console.log(`read state error`);
+//     }
+// }
 
 //adds book to library array
 function addBookToLibrary(title,author,pageno,read) {
@@ -189,6 +217,7 @@ function addDelButton() {
                 if (myLibrary[i].id === cardId) {
                     console.log(`deleted ${myLibrary[i].title}`);
                     myLibrary.splice(i,1);
+                    break;
                 } else {
                     console.log("Pass");
                 }
